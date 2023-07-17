@@ -1,69 +1,94 @@
 #include <iostream>
-#include "Core/Random.h"
-#include "Core/FileIO.h"
-#include "Core/Memory.h"
-#include "Core/Time.h"
+#include "Core/Core.h"
 #include "Renderer/Renderer.h"
+#include <vector>
+#include "Renderer/Model.h"
+#include "Input/InputSystem.h"
+#include "Audio/AudioSystem.h"
+#include "Player.h"
+#include "Enemy.h"
 
 using namespace std;
 
 
-
-int main()
+int main(int argc, char* argv[])
 {
 
 
+	//INIT
+	cg::seedRandom((unsigned int)time(nullptr));
+	cg::setFilePath("assets");
+	cg::g_renderer.Initialize();
+	cg::g_renderer.CreateWindow("Window", 800, 600);
+	cg::g_inputSystem.Initialize();
+	cg::g_audioSystem.Initialize();
 
 
-	/*cg::Time timer;
-	for (int i = 0; i < 999999; i++) {
 
+
+	cg::Model astroid;
+	astroid.Load("astroid.txt");
+
+
+
+	cg::Model ship;
+	ship.Load("ship.txt");
+	Player player{ 200, cg::Pi, { {400, 300}, 0, 5 }, ship };
+	std::vector<Enemy> enemies;
+	for (int i = 0; i < 10; i++) {
+		Enemy enemy{ 300, cg::Pi, { {cg::random(800), cg::random(600)}, cg::randomf(cg::TwoPi), 6}, astroid};
+		enemies.push_back(enemy);
 	}
-	cout << timer.GetElapsedNanoseconds();*/
 
-	//cg::g_memoryTracker.DisplayInfo();
-	//int* ptr = new int;
-	//cg::g_memoryTracker.DisplayInfo();
-	//delete ptr;
-	//cg::g_memoryTracker.DisplayInfo();
+	//GAME
+
+	bool quit = false;
+	while (!quit) {
 
 
-	/*auto start = std::chrono::high_resolution_clock::now();
+		//ENGINE
+		cg::g_time.Tick();
+		cg::g_audioSystem.Update();
+		cg::g_inputSystem.Update();
+		if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_ESCAPE)) {
+			quit = true;
+		}
 
-	for (int i = 0; i < 1999999999; i++) {
+		//SOUNDS
+		cg::g_audioSystem.AddAudio("hit", "boom.wav");
+		if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE))
+		{
+			cg::g_audioSystem.PlayOneShot("hit");
+		}
 
+
+
+		//GAME
+		player.Update(cg::g_time.GetDeltaTime());
+		for (Enemy& enemy : enemies) {
+			enemy.Update(cg::g_time.GetDeltaTime());
+		}
+
+
+		//DRAW
+		cg::g_renderer.SetColor(0, 0, 0, 0);
+		cg::g_renderer.BeginFrame();
+		cg::g_renderer.SetColor(255, 255, 255, 0);
+
+
+		player.Draw(cg::g_renderer);
+		for (Enemy& enemy : enemies) {
+			enemy.Draw(cg::g_renderer);
+		}
+
+
+
+
+		//CLEAR
+		cg::g_renderer.EndFrame();
 	}
-	auto end = std::chrono::high_resolution_clock::now();
-
-	cout << (end - start).count() << endl;
-
-
-	cout << std::chrono::duration_cast<std::chrono::microseconds>(end - start).count() << endl;
-
-	cout << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << endl;
-
-	cout << std::chrono::duration_cast<std::chrono::seconds>(end - start).count() << endl;*/
 
 
 
-	//cout << cg::getFilePath() << endl;
-	//cg::setFilePath("Assets");
-	//cout << cg::getFilePath() << endl;
-
-	//size_t size;
-	//cg::getFileSize("Game.txt", size);
-	//cout << "file size: " << size << endl;
-
-	//std::string s;
-	//cg::readFile("Game.txt", s);
-	//cout << s << endl;
-
-
-	//cg::seedRandom((unsigned int)time(nullptr));
-
-	//for (int i = 0; i < 1; i++) {
-		//cout << cg::random() % 10 << endl;
-		//cout << cg::random(30) << endl;
-		//cout << cg::random(10,11) << endl;
-	//}
+	return 0;
 }

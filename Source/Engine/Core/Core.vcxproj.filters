@@ -19,6 +19,18 @@
     <ClInclude Include="Time.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtils.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FileIO.cpp">
