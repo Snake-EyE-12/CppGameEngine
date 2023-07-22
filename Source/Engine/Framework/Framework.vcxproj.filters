@@ -7,36 +7,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Renderer.cpp">
+    <ClCompile Include="Actor.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Font.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Text.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelManager.cpp">
+    <ClCompile Include="Scene.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Renderer.h">
+    <ClInclude Include="Actor.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
+    <ClInclude Include="Scene.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Font.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Text.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelManager.h">
+    <ClInclude Include="Game.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

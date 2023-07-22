@@ -1,9 +1,11 @@
 #include "Player.h"
 #include "Input/InputSystem.h"
+#include "Paddle.h"
+#include "Framework/Scene.h"
 
 void Player::Update(float dt)
 {
-
+	Actor::Update(dt);
 	float rotate = 0;
 	if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_A)) rotate = -1;
 	if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_D)) rotate = 1;
@@ -18,4 +20,19 @@ void Player::Update(float dt)
 	m_transform.position.x = cg::Wrap(m_transform.position.x, (float)cg::g_renderer.getWidth());
 	m_transform.position.y = cg::Wrap(m_transform.position.y, (float)cg::g_renderer.getHeight());
 
+	if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && !cg::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE)) {
+		cg::Transform transform{m_transform.position, m_transform.rotation, 1};
+		std::unique_ptr<Paddle> paddle = std::make_unique<Paddle>(400.0f, transform, m_model);
+		paddle->m_tag = "Player";
+		m_scene->Add(std::move(paddle));
+	}
+	
+}
+
+void Player::OnCollision(Actor* other)
+{
+	if (other->m_tag != m_tag) {
+		m_health -= 10;
+	}
+	if (m_health <= 0) m_destroyed = true;
 }

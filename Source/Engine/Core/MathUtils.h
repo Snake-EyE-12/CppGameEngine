@@ -36,4 +36,9 @@ namespace cg
 
 		return value;
 	}
+	template <typename T>
+	inline T Abs(T value) {
+		std::abs(value);
+	}
+
 }

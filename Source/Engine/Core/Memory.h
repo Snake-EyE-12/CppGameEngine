@@ -1,26 +1,20 @@
 #pragma once
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+#include <memory>
+
+#ifdef _DEBUG
+#define DEBUG_NEW   new( _CLIENT_BLOCK, __FILE__, __LINE__)
+#define new DEBUG_NEW
+#endif // _DEBUG
 
 namespace cg
 {
-	struct MemoryAllocation
-	{
-		void* address;
-		size_t size;
-		MemoryAllocation* next;
-	};
-
 	class MemoryTracker
 	{
 	public:
-		void Add(void* address, size_t size);
-		void Remove(void* address, size_t size);
-
-		void DisplayInfo();
-	private:
-		size_t m_bytesAllocated = 0;
-		size_t m_numAllocations = 0;
+		static bool Initialize();
+		static void DisplayInfo();
 	};
-
-	extern cg::MemoryTracker g_memoryTracker;
-
 }

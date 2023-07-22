@@ -1,15 +1,24 @@
 #pragma once
-#include "Actor.h"
-class Enemy : public Actor
+#include "Framework/Actor.h"
+#include "Renderer/Model.h"
+class Enemy : public cg::Actor
 {
 public:
-	Enemy(float speed, float turnRate, const cg::Transform& transform, const cg::Model& model) :
+	Enemy(float speed, float turnRate, const cg::Transform& transform, std::shared_ptr<cg::Model> model) :
 		Actor{ transform, model },
 		m_speed{ speed },
 		m_turnRate{ turnRate }
-	{}
+	{
+		m_fireRate = 2.0f;
+		m_fireTimer = m_fireRate;
+	
+	}
 	void Update(float dt) override;
+	void OnCollision(Actor* other) override;
 private:
 	float m_speed = 0;
 	float m_turnRate = 0;
+
+	float m_fireRate = 0;
+	float m_fireTimer = 0;
 };

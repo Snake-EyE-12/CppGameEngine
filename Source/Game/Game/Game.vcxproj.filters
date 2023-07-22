@@ -10,24 +10,45 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Actor.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Paddle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="AstroidFighter.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageMinesweeper.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Cell.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actor.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Paddle.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="AstroidFighter.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="GameIncludes.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageMinesweeper.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Cell.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
