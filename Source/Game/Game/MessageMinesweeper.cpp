@@ -29,7 +29,7 @@ namespace game
 
 		//Start Loop
 		while (!m_quit && !restart) {
-			std::cout << restart << " " << m_quit << std::endl;
+			//std::cout << restart << " " << m_quit << std::endl;
 			Update();
 			Draw();
 			Clear();

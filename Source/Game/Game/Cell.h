@@ -16,11 +16,12 @@ namespace cg
 			m_pos{ pos },
 			m_restart{ restart }
 		{};
-		void Reveal(std::string value);
+		void Reveal(int value);
 		void Update(float dt) override;
 		void Draw(cg::Renderer& renderer) override;
 		bool inRange();
 		int bombsInRadius(int x, int y);
+		void revealZero(int x, int y);
 		bool* m_restart;
 	private:
 		bool m_bomb = false;

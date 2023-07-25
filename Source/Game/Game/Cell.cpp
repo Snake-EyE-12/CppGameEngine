@@ -5,17 +5,20 @@
 #include "Audio/AudioSystem.h"
 namespace cg
 {
-	void Cell::Reveal(std::string value)
+	void Cell::Reveal(int value)
 	{
+		if (value == 0) {
+			//revealZero(m_pos.x, m_pos.y);
+		}
 
-		m_text->Create(cg::g_renderer, value, cg::Color{ 1, 1, 1, 1 });
+		m_text->Create(cg::g_renderer, std::to_string(value), cg::Color{ 1, 1, 1, 1 });
 		m_model = cg::g_manager.Get("empty.txt");
 
 		if (m_bomb) {
 			cg::g_audioSystem.PlayOneShot("hit");
 			m_model = cg::g_manager.Get("bomb.txt");
 			//
-			*m_restart = true;
+			//*m_restart = true;
 		}
 		else cg::g_audioSystem.PlayOneShot("success");
 		m_revealed = true;
@@ -25,7 +28,7 @@ namespace cg
 	{
 		Actor::Update(dt);
 		if (cg::g_inputSystem.GetMouseButtonDown(0) && inRange() && !m_flagged && !m_revealed) {
-			Reveal(std::to_string(bombsInRadius(m_pos.x, m_pos.y)));
+			Reveal((bombsInRadius(m_pos.x, m_pos.y)));
 		}
 		if (cg::g_inputSystem.GetMouseButtonDown(2) && !cg::g_inputSystem.GetMousePreviousButtonDown(2) && inRange() && !m_revealed) {
 			if (!m_flagged) {
@@ -60,6 +63,17 @@ namespace cg
 			}
 		}
 		return total;
+	}
+
+	void Cell::revealZero(int x, int y)
+	{
+		for (int i = x - 1; i <= x + 1; i++) {
+			for (int j = y - 1; j <= y + 1; j++) {
+				if (!(i == x && j == y) && i >= 0 && j >= 0 && i < 36 && j < 23 && matrix[j][i]) {
+					//
+				}
+			}
+		}
 	}
 
 	void Cell::Draw(cg::Renderer& renderer)
