@@ -11,3 +11,4 @@
 #include "Framework/Scene.h"
 #include "Renderer/Font.h"
 #include "Renderer/Text.h"
+#include "Renderer/ParticleSystem.h"

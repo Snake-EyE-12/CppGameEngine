@@ -1,17 +1,37 @@
 #pragma once
 #include "Framework/Game.h"
+#include "Renderer/Text.h"
 
-namespace game
+class AstroidFighter : public cg::Game
 {
-	class AstroidFighter : public Game
+public:
+	enum eState
 	{
-	public:
-		AstroidFighter() = default;
-		bool Start() override;
-		void Update() override;
-		void Draw() override;
-		void Clear() override;
-	private:
-
+		Title,
+		StartGame,
+		StartLevel,
+		Game,
+		PlayerDead,
+		GameOver
 	};
-}
+
+public:
+	virtual bool Initialize() override;
+
+	virtual void Shutdown() override;
+
+	virtual void Update(float dt) override;
+
+	virtual void Draw(cg::Renderer& renderer) override;
+	void SetState(eState state) { m_state = state; }
+private:
+	eState m_state = eState::Title;
+	float m_spawnTime = 0.0f;
+	float m_spawnRate = 3.0f;
+
+	std::shared_ptr<cg::Font> m_font;
+	std::unique_ptr<cg::Text> m_scoreText;
+	std::unique_ptr<cg::Text> m_titleText;
+
+
+};

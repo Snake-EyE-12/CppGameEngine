@@ -1,19 +1,30 @@
 #pragma once
-#include "GameIncludes.h"
+#include <memory>
 
-namespace game
+namespace cg
 {
 	class Game
 	{
+		//class Renderer;
+		//class Scene;
 	public:
 		Game() {}
-		~Game() = default;
-		virtual bool Start() = 0;
-		virtual void Update() = 0;
-		virtual void Draw() = 0;
-		virtual void Clear() = 0;
+		virtual ~Game() = default;
+		virtual bool Initialize() = 0;
+		virtual void Shutdown() = 0;
+
+		virtual void Update(float dt) = 0;
+		virtual void Draw(class Renderer& renderer) = 0;
+
+		int GetScore() const { return m_score; }
+		void AddPoints(int points) { m_score += points; }
+
+		int GetLives() const { return m_lives; }
+		void SetLives(int lives) { m_lives = lives; }
+
 	protected:
-		cg::Scene m_scene;
-		bool m_quit = false;
+		int m_score = 0;
+		int m_lives = 3;
+		std::unique_ptr<class Scene> m_scene;
 	};
 }

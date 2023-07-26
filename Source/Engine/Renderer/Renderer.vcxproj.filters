@@ -22,6 +22,12 @@
     <ClCompile Include="ModelManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -37,6 +43,12 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="ModelManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

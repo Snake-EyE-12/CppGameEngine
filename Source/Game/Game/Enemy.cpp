@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Paddle.h"
+#include "AstroidFighter.h"
 
 #include "Framework/Scene.h"
 #include "Renderer/Renderer.h"
@@ -35,6 +36,7 @@ void Enemy::Update(float dt)
 void Enemy::OnCollision(Actor* other)
 {
 	if (other->m_tag != m_tag) {
+		m_game->AddPoints(100);
 		m_destroyed = true;
 	}
 }

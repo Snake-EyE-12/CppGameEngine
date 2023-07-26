@@ -2,6 +2,7 @@
 #include "Input/InputSystem.h"
 #include "Paddle.h"
 #include "Framework/Scene.h"
+#include "AstroidFighter.h"
 
 void Player::Update(float dt)
 {
@@ -34,5 +35,9 @@ void Player::OnCollision(Actor* other)
 	if (other->m_tag != m_tag) {
 		m_health -= 10;
 	}
-	if (m_health <= 0) m_destroyed = true;
+	if (m_health <= 0) {
+		m_destroyed = true;
+		m_game->SetLives(m_game->GetLives() - 1);
+		dynamic_cast<AstroidFighter*>(m_game)->SetState(AstroidFighter::eState::PlayerDead);
+	}
 }
