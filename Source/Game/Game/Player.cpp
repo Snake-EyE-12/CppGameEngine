@@ -6,6 +6,7 @@
 #include "Framework/Emitter.h"
 
 #include "Audio/AudioSystem.h"
+#include "Enemy.h"
 
 void Player::Update(float dt)
 {
@@ -40,7 +41,7 @@ void Player::Update(float dt)
 void Player::OnCollision(Actor* other)
 {
 	if (m_destroyed) return;
-	if (other->m_tag == "Enemy") {
+	if (other->m_tag == "Enemy" && dynamic_cast<Enemy*>(other)->m_aliveTime >= 0.5f) {
 		cg::g_audioSystem.PlayOneShot("damage", false);
 		m_health -= 8;
 		//Particles

@@ -27,6 +27,7 @@ public:
 	virtual void Draw(cg::Renderer& renderer) override;
 	void SetState(eState state) { m_state = state; }
 	bool AttemptClearTetris();
+	void TetrisMaxHeightReached();
 
 private:
 	eState m_state = eState::Title;

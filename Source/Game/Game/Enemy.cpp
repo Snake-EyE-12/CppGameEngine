@@ -14,6 +14,7 @@
 void Enemy::Update(float dt)
 {
 	Actor::Update(dt);
+	m_aliveTime += dt;
 
 	cg::Vector2 forward = cg::Vector2{ 0, -1 }.Rotate(m_transform.rotation);
 
@@ -50,7 +51,7 @@ void Enemy::Update(float dt)
 
 void Enemy::OnCollision(Actor* other)
 {
-	if (((other->m_tag == "Block" && !dynamic_cast<Block*>(other)->m_placed) || other->m_tag == "Player") && !m_destroyed) {
+	if (((other->m_tag == "Block" && !dynamic_cast<Block*>(other)->m_placed) || (other->m_tag == "Player")) && !m_destroyed) {
 		m_game->AddPoints(10);
 		cg::g_audioSystem.PlayOneShot("hit", false);
 		m_destroyed = true;

@@ -183,7 +183,6 @@ bool AstroidFighter::AttemptClearTetris()
 	const int width = 10;
 	const int height = 10;
 	int eachBlockLine[width][height];
-	m_scene->GetBlocks();
 	for (Block* block : m_scene->GetBlocks()) {
 		eachBlockLine[(int)(cg::Clamp(block->m_transform.position.x / cg::g_renderer.getWidth(), 0.0f, 0.99f) * width)][(int)(cg::Clamp(block->m_transform.position.y / cg::g_renderer.getHeight(), 0.0f, 0.99f) * height)] = 1;
 	}
@@ -213,6 +212,16 @@ bool AstroidFighter::AttemptClearTetris()
 
 
 }
+
+void AstroidFighter::TetrisMaxHeightReached()
+{
+	m_state = eState::GameOverStart;
+	for (Block* block : m_scene->GetBlocks()) {
+		block->Destroy();
+	}
+
+}
+
 
 /*
 Things Added:

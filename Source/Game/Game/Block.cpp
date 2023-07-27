@@ -24,11 +24,11 @@ void Block::Update(float dt)
 void Block::OnCollision(Actor* other)
 {
 	Block* block = dynamic_cast<Block*>(other);
-	if (block && block->m_placed && block->m_transform.position.y >= m_transform.position.y && !m_placed) {
+	if (block && block->m_placed && !m_placed) {
 		Place();
 	}
 	if (m_transform.position.y <= 50 && m_placed && !m_destroyed) {
-		dynamic_cast<AstroidFighter*>(m_game)->SetState(AstroidFighter::eState::GameOverStart);
+		dynamic_cast<AstroidFighter*>(m_game)->TetrisMaxHeightReached();
 		m_destroyed = true;
 	}
 	if (other->m_tag == "Laser" && m_transform.position.y <= 30 && !m_placed && !m_destroyed) {

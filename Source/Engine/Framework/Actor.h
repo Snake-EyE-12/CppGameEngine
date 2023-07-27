@@ -20,7 +20,7 @@ namespace cg
 		virtual void Update(float dt);
 		virtual void Draw(cg::Renderer& renderer);
 
-		float GetRadius() { return (m_model) ? m_model->GetRadius() * m_transform.scale : 0; }
+		float GetRadius() { return (m_model) ? m_model->GetRadius() * m_transform.scale : -10000; }
 
 		virtual void OnCollision(Actor* other) {}
 
