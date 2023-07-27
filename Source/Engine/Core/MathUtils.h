@@ -1,5 +1,6 @@
 #pragma once
 #include <cmath>
+#include <utility>
 
 namespace cg
 {
@@ -39,6 +40,11 @@ namespace cg
 	template <typename T>
 	inline T Abs(T value) {
 		std::abs(value);
+	}
+	template<typename T>
+	constexpr T Lerp(const T& a, const T& b, float t)
+	{
+		return (a * (1.0f - t)) + (b * t);
 	}
 
 }

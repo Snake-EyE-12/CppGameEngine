@@ -1,8 +1,11 @@
 #include "Player.h"
 #include "Input/InputSystem.h"
-#include "Paddle.h"
+#include "Block.h"
 #include "Framework/Scene.h"
 #include "AstroidFighter.h"
+#include "Framework/Emitter.h"
+
+#include "Audio/AudioSystem.h"
 
 void Player::Update(float dt)
 {
@@ -16,28 +19,75 @@ void Player::Update(float dt)
 	float thrust = 0;
 	if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_W)) thrust = 1;
 	cg::Vector2 forward = cg::Vector2{ 0, -1 }.Rotate(m_transform.rotation);
-	m_transform.position += forward * thrust * m_speed * cg::g_time.GetDeltaTime();
+	AddForce(forward * m_speed * thrust);
 
 	m_transform.position.x = cg::Wrap(m_transform.position.x, (float)cg::g_renderer.getWidth());
 	m_transform.position.y = cg::Wrap(m_transform.position.y, (float)cg::g_renderer.getHeight());
 
-	if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && !cg::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE)) {
-		cg::Transform transform{m_transform.position, m_transform.rotation, 1};
-		std::unique_ptr<Paddle> paddle = std::make_unique<Paddle>(400.0f, transform, m_model);
-		paddle->m_tag = "Player";
-		m_scene->Add(std::move(paddle));
+	m_fireTimer -= dt;
+	if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) && m_fireTimer <= 0 && !m_onBlock) {
+		cg::Transform transform{m_transform.position, cg::randomf(cg::TwoPi), 5};
+		std::unique_ptr<Block> block = std::make_unique<Block>(600.0f, transform, cg::random(0, 6), forward.Normalized());
+		block->m_tag = "Block";
+		block->m_game = m_game;
+		m_scene->Add(std::move(block));
+		m_fireTimer = m_fireRate;
 	}
+	m_onBlock = false;
 	
 }
 
 void Player::OnCollision(Actor* other)
 {
-	if (other->m_tag != m_tag) {
-		m_health -= 10;
+	if (m_destroyed) return;
+	if (other->m_tag == "Enemy") {
+		cg::g_audioSystem.PlayOneShot("damage", false);
+		m_health -= 8;
+		//Particles
+		cg::EmitterData data;
+		data.burst = true;
+		data.burstCount = 40;
+		data.spawnRate = 190;
+		data.angle = 0;
+		data.angleRange = cg::HalfPi;
+		data.lifetimeMin = 0.1f;
+		data.lifetimeMax = 0.4f;
+		data.speedMin = 150;
+		data.speedMax = 250;
+		data.damping = 0.8f;
+		data.color = cg::Color{ 0.5, cg::randomf(0.7,1), cg::randomf(0.7,1), 1 };
+
+		cg::Transform transform{ m_transform.position, 0, 1 };
+		auto emitter = std::make_unique<cg::Emitter>(transform, data);
+		emitter->m_lifespan = 0.3f;
+		m_scene->Add(std::move(emitter));
+	}
+	if (other->m_tag == "Bullet") {
+		cg::g_audioSystem.PlayOneShot("damage", false);
+		m_health -= 4;
+		//Particles
+		cg::EmitterData data;
+		data.burst = true;
+		data.burstCount = 20;
+		data.spawnRate = 90;
+		data.angle = 0;
+		data.angleRange = cg::HalfPi;
+		data.lifetimeMin = 0.1f;
+		data.lifetimeMax = 0.2f;
+		data.speedMin = 100;
+		data.speedMax = 200;
+		data.damping = 0.9f;
+		data.color = cg::Color{ 0.3, cg::randomf(0.5,0.7), cg::randomf(0.5,0.7), 1 };
+
+		cg::Transform transform{ m_transform.position, 0, 1 };
+		auto emitter = std::make_unique<cg::Emitter>(transform, data);
+		emitter->m_lifespan = 0.3f;
+		m_scene->Add(std::move(emitter));
 	}
 	if (m_health <= 0) {
 		m_destroyed = true;
-		m_game->SetLives(m_game->GetLives() - 1);
-		dynamic_cast<AstroidFighter*>(m_game)->SetState(AstroidFighter::eState::PlayerDead);
+		dynamic_cast<AstroidFighter*>(m_game)->SetState(AstroidFighter::eState::PlayerDeadStart);
 	}
+	m_onBlock = other->m_tag == "Block";
+	
 }

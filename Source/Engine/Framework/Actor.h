@@ -24,9 +24,11 @@ namespace cg
 
 		virtual void OnCollision(Actor* other) {}
 
+		void AddForce(const Vector2& force) { m_velocity += force; }
+		void SetDamping(float damping) { m_damping = damping; }
+
 		class Scene* m_scene = nullptr;
 		friend class Scene;
-		//friend class EmitterData;
 		class Game* m_game = nullptr;
 		cg::Transform m_transform;
 		std::string m_tag;
@@ -36,6 +38,9 @@ namespace cg
 		bool m_destroyed = false;
 
 		std::shared_ptr<Model> m_model;
+
+		Vector2 m_velocity;
+		float m_damping = 0;
 
 
 	};

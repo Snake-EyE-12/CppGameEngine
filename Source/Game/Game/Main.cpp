@@ -22,13 +22,17 @@ int main(int argc, char* argv[])
 
 	bool quit = false;
 	while (!quit) {
+		//Update
 		cg::g_time.Tick();
 		cg::g_audioSystem.Update();
 		cg::g_inputSystem.Update();
 		cg::g_particleSystem.Update(cg::g_time.GetDeltaTime());
 		game->Update(cg::g_time.GetDeltaTime());
 
+		if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_ESCAPE)) quit = true;
 
+
+		//Draw
 		cg::g_renderer.SetColor(0, 0, 0, 0);
 		cg::g_renderer.BeginFrame();
 

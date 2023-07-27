@@ -15,6 +15,7 @@ namespace cg
 		void Draw(Renderer& renderer, const vec2& position, float rotation, float scale);
 		void Draw(Renderer& renderer, const Transform& transform);
 		float GetRadius();
+		Color GetColor();
 	private:
 		std::vector<vec2> m_points;
 		Color m_color;

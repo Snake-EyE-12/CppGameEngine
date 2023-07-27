@@ -1,7 +1,7 @@
 #include "ParticleSystem.h"
 namespace cg
 {
-	ParticleSystem g_particleSystem(20);
+	ParticleSystem g_particleSystem(200);
 	void ParticleSystem::Update(float dt)
 	{
 		for (auto& particle : m_particles)

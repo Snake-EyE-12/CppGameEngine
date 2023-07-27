@@ -1,9 +1,9 @@
 #pragma once
 #include "Framework/Actor.h"
-class Paddle : public cg::Actor
+class Bullet : public cg::Actor
 {
 public:
-	Paddle(float speed, const cg::Transform& transform, std::shared_ptr<cg::Model> model) :
+	Bullet(float speed, const cg::Transform& transform, std::shared_ptr<cg::Model> model) :
 		Actor{ transform, model },
 		m_speed{ speed }
 	{

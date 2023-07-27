@@ -1,4 +1,6 @@
 #include "Particle.h"
+#include "Input/InputSystem.h"
+#include "Core/Time.h"
 namespace cg
 {
 	void Particle::Update(float dt)
@@ -12,6 +14,9 @@ namespace cg
 		m_data.prevPosition = m_data.position;
 		m_data.position += m_data.velocity * dt;
 		m_data.velocity *= std::pow(1.0f - m_data.damping, dt);
+
+		if (cg::g_inputSystem.GetKeyDown(SDL_SCANCODE_T)) cg::g_time.SetTimeScale(2.0f);
+		else cg::g_time.SetTimeScale(1.0f);
 	}
 	void Particle::Draw(Renderer& renderer)
 	{

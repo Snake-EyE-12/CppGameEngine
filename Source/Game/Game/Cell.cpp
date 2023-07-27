@@ -15,12 +15,12 @@ namespace cg
 		m_model = cg::g_manager.Get("empty.txt");
 
 		if (m_bomb) {
-			cg::g_audioSystem.PlayOneShot("hit");
+			cg::g_audioSystem.PlayOneShot("hit", false);
 			m_model = cg::g_manager.Get("bomb.txt");
 			//
 			//*m_restart = true;
 		}
-		else cg::g_audioSystem.PlayOneShot("success");
+		else cg::g_audioSystem.PlayOneShot("success", false);
 		m_revealed = true;
 	}
 
@@ -33,7 +33,7 @@ namespace cg
 		if (cg::g_inputSystem.GetMouseButtonDown(2) && !cg::g_inputSystem.GetMousePreviousButtonDown(2) && inRange() && !m_revealed) {
 			if (!m_flagged) {
 				m_model = cg::g_manager.Get("flag.txt");
-				cg::g_audioSystem.PlayOneShot("flag");
+				cg::g_audioSystem.PlayOneShot("flag", false);
 				m_flagged = true;
 			}
 			else {

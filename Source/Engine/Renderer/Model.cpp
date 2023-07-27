@@ -48,4 +48,8 @@ namespace cg
 		}
 		return m_radius;
 	}
+	Color Model::GetColor()
+	{
+		return m_color;
+	}
 }

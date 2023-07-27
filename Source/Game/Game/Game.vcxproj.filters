@@ -16,7 +16,7 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Paddle.cpp">
+    <ClCompile Include="Bullet.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="AstroidFighter.cpp">
@@ -28,6 +28,12 @@
     <ClCompile Include="Cell.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Laser.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Block.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -36,7 +42,7 @@
     <ClInclude Include="Enemy.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Paddle.h">
+    <ClInclude Include="Bullet.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="AstroidFighter.h">
@@ -49,6 +55,12 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Cell.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Laser.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Block.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
