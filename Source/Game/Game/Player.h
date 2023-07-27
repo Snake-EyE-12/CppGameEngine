@@ -12,6 +12,7 @@ public:
 	{}
 	void Update(float dt) override;
 	void OnCollision(Actor* other) override;
+	void Destroy();
 	cg::Text m_text;
 private:
 	float m_speed = 0;

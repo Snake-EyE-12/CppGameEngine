@@ -48,6 +48,7 @@ bool AstroidFighter::Initialize()
 
 	//Scene
 	m_scene = std::make_unique<cg::Scene>();
+	
 
 	return true;
 }
@@ -82,7 +83,7 @@ void AstroidFighter::Update(float dt)
 	case eState::StartLevel: {
 		m_scene->RemoveAll();
 
-		std::unique_ptr<Player> player = std::make_unique<Player>(0.3f, 10.0f, cg::Pi, cg::Transform{ {400, 300}, 0, 5 }, cg::g_manager.Get("ship.txt"));
+		std::unique_ptr<Player> player = std::make_unique<Player>(0.3f, 5.0f, cg::Pi, cg::Transform{ {400, 300}, 0, 5 }, cg::g_manager.Get("ship.txt"));
 		player->m_tag = "Player";
 		player->m_game = this;
 		player->SetDamping(0.6f);
@@ -131,12 +132,19 @@ void AstroidFighter::Update(float dt)
 		break;
 
 
-		//Player 
+		//Game Over
 	case eState::GameOverStart:
+	{
 		cg::g_audioSystem.PlayOneShot("lose", false);
 		m_stateTimer = 3;
+		Player* plr = m_scene->GetActor<Player>();
+		if (plr) plr->Destroy();
 		m_state = eState::GameOver;
+	}
 		break;
+
+
+		//Over
 	case eState::GameOver:
 		m_stateTimer -= dt;
 		if (m_stateTimer <= 0) {
@@ -205,4 +213,16 @@ bool AstroidFighter::AttemptClearTetris()
 
 
 }
+
+/*
+Things Added:
+
+Music and Tetris Sound Track
+Different Types of Bullets
+Scene Tetris Completion
+Height Limit With a Laser
+Bonus Points - Player Health - Player Fire Rate
+
+
+*/
 

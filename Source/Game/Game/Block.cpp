@@ -29,6 +29,7 @@ void Block::OnCollision(Actor* other)
 	}
 	if (m_transform.position.y <= 50 && m_placed && !m_destroyed) {
 		dynamic_cast<AstroidFighter*>(m_game)->SetState(AstroidFighter::eState::GameOverStart);
+		m_destroyed = true;
 	}
 	if (other->m_tag == "Laser" && m_transform.position.y <= 30 && !m_placed && !m_destroyed) {
 		m_destroyed = true;

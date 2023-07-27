@@ -91,3 +91,8 @@ void Player::OnCollision(Actor* other)
 	m_onBlock = other->m_tag == "Block";
 	
 }
+
+void Player::Destroy()
+{
+	m_destroyed = true;
+}
